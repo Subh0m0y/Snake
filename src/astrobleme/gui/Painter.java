@@ -58,7 +58,7 @@ public class Painter {
 
         // The score
         gc.setFill(Color.BEIGE);
-        gc.fillText("Score : " + 100 * snake.getPoints().size(), 10, 490);
+        gc.fillText("Score : " + 100 * snake.getPoints().size(), 10, 10);
     }
 
     private static void paintPoint(Point point, GraphicsContext gc) {

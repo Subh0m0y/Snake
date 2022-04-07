@@ -37,30 +37,38 @@ public class GameLoop implements Runnable {
     private final GraphicsContext context;
     private float interval;
     private boolean running;
-    private boolean paused;
-    private boolean keyIsPressed;
+    private boolean stopped;
+    public boolean keyIsPressed;
 
     public GameLoop(final Grid grid, final GraphicsContext context) {
         this.grid = grid;
         this.context = context;
         interval = 1000.0f / FRAME_RATE; // 1000 ms in a second
         running = true;
-        paused = false;
+        stopped = false;
         keyIsPressed = false;
     }
 
     @Override
     public void run() {
-        while (running && !paused) {
+        while (true) {
+//            while (running && !stoped) {
             // Time the update and paint calls
+            if (running);
+            else {
+                System.out.println("Pausing...... ");
+                ;
+                continue;
+            }
             float time = System.currentTimeMillis();
 
             grid.update();
             Painter.paint(grid, context);
 
             if (!grid.getSnake().isSafe()) {
-                pause();
+                stop();
                 Painter.paintResetMessage(context);
+//                keyIsPressed = false;
                 break;
             }
 
@@ -74,30 +82,35 @@ public class GameLoop implements Runnable {
                 }
             }
             keyIsPressed = false;
+//            System.out.println("Running...... ");
         }
     }
 
-    public void stop() {
-        running = false;
-    }
 
     public boolean isKeyPressed() {
         return keyIsPressed;
     }
-
+    public void setKeyUnpressed(){
+        keyIsPressed = false;
+    }
     public void setKeyPressed() {
         keyIsPressed = true;
     }
 
     public void resume() {
-        paused = false;
+        running = true;
     }
-
     public void pause() {
-        paused = true;
+        running = false;
+    }
+    public boolean isRunning(){
+        return running;
+    }
+    public void stop() {
+        stopped = true;
     }
 
-    public boolean isPaused() {
-        return paused;
+    public boolean isOver() {
+        return stopped;
     }
 }

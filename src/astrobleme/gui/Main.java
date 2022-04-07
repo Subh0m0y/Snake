@@ -41,8 +41,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
+    private static final int WIDTH = 200;
+    private static final int HEIGHT = 200;
 
     private GameLoop loop;
     private Grid grid;
@@ -62,28 +62,56 @@ public class Main extends Application {
         canvas.setOnKeyPressed(e -> {
             Snake snake = grid.getSnake();
             if (loop.isKeyPressed()) {
-                return;
+                if(loop.isRunning()){
+                    System.out.println("Pressed ");
+                    return;
+                }
+                else{
+                }
             }
             switch (e.getCode()) {
                 case UP:
                     snake.setUp();
+                    System.out.println("up ");
                     break;
                 case DOWN:
                     snake.setDown();
+                    System.out.println("down ");
                     break;
                 case LEFT:
                     snake.setLeft();
+                    System.out.println("left ");
                     break;
                 case RIGHT:
                     snake.setRight();
+                    System.out.println("right ");
+                    break;
+                case P:
+                    System.out.println("P " + loop.isOver());
+                    loop.setKeyUnpressed();
+                    if(loop.isRunning()){
+                        loop.pause();
+                        System.out.println("Pause. ");
+                    }
+
+                    else{
+                        loop.resume();
+                        System.out.println("Resume. ");
+                    }
                     break;
                 case ENTER:
-                    if (loop.isPaused()) {
+                    System.out.println("Enter ");
+//                    loop.setKeyUnpressed();
+                    if (loop.isOver()) {
                         reset();
+                        System.out.println("********* Restart ********");
                         (new Thread(loop)).start();
                     }
+                    break;
+                default: System.out.println("Other ");
             }
-            loop.setKeyPressed();
+            if(loop.isOver()) return;
+            else loop.setKeyPressed();
         });
 
         reset();
