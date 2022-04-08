@@ -52,12 +52,13 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
         while (true) {
-//            while (running && !stoped) {
             // Time the update and paint calls
             if (running);
             else {
-                System.out.println("Pausing...... ");
-                ;
+//                System.out.println("Pausing...... ");
+                try {
+                    Thread.sleep((long) (interval));
+                } catch (InterruptedException ignore){}
                 continue;
             }
             float time = System.currentTimeMillis();
