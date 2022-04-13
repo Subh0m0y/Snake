@@ -62,55 +62,42 @@ public class Main extends Application {
         canvas.setOnKeyPressed(e -> {
             Snake snake = grid.getSnake();
             if (loop.isKeyPressed()) {
-                if(loop.isRunning()){
-                    System.out.println("Pressed ");
+                if (loop.isRunning()) {
                     return;
-                }
-                else{
+                } else {
                 }
             }
             switch (e.getCode()) {
                 case UP:
                     snake.setUp();
-                    System.out.println("up ");
                     break;
                 case DOWN:
                     snake.setDown();
-                    System.out.println("down ");
                     break;
                 case LEFT:
                     snake.setLeft();
-                    System.out.println("left ");
                     break;
                 case RIGHT:
                     snake.setRight();
-                    System.out.println("right ");
                     break;
                 case P:
-                    System.out.println("P " + loop.isOver());
                     loop.setKeyUnpressed();
-                    if(loop.isRunning()){
+                    if (loop.isRunning()) {
                         loop.pause();
-                        System.out.println("Pause. ");
-                    }
-
-                    else{
+                    } else {
                         loop.resume();
-                        System.out.println("Resume. ");
                     }
                     break;
                 case ENTER:
-                    System.out.println("Enter ");
-//                    loop.setKeyUnpressed();
                     if (loop.isOver()) {
                         reset();
-                        System.out.println("********* Restart ********");
                         (new Thread(loop)).start();
                     }
                     break;
-                default: System.out.println("Other ");
+                default:
+                    break;
             }
-            if(loop.isOver()) return;
+            if (loop.isOver()) return;
             else loop.setKeyPressed();
         });
 

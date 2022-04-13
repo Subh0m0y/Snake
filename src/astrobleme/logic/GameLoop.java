@@ -53,12 +53,12 @@ public class GameLoop implements Runnable {
     public void run() {
         while (true) {
             // Time the update and paint calls
-            if (running);
+            if (running) ;
             else {
-//                System.out.println("Pausing...... ");
                 try {
                     Thread.sleep((long) (interval));
-                } catch (InterruptedException ignore){}
+                } catch (InterruptedException ignore) {
+                }
                 continue;
             }
             float time = System.currentTimeMillis();
@@ -69,7 +69,6 @@ public class GameLoop implements Runnable {
             if (!grid.getSnake().isSafe()) {
                 stop();
                 Painter.paintResetMessage(context);
-//                keyIsPressed = false;
                 break;
             }
 
@@ -83,7 +82,6 @@ public class GameLoop implements Runnable {
                 }
             }
             keyIsPressed = false;
-//            System.out.println("Running...... ");
         }
     }
 
@@ -91,9 +89,11 @@ public class GameLoop implements Runnable {
     public boolean isKeyPressed() {
         return keyIsPressed;
     }
-    public void setKeyUnpressed(){
+
+    public void setKeyUnpressed() {
         keyIsPressed = false;
     }
+
     public void setKeyPressed() {
         keyIsPressed = true;
     }
@@ -101,12 +101,15 @@ public class GameLoop implements Runnable {
     public void resume() {
         running = true;
     }
+
     public void pause() {
         running = false;
     }
-    public boolean isRunning(){
+
+    public boolean isRunning() {
         return running;
     }
+
     public void stop() {
         stopped = true;
     }
