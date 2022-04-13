@@ -92,8 +92,9 @@ public class Snake {
      * @param point The new Point to move to.
      */
     private void checkAndAdd(Point point) {
+        safe = safe && !points.contains(point) && (point.getX()!=-1);
         point = grid.wrap(point);
-        safe = safe && !points.contains(point);
+//        safe = safe && !points.contains(point);
         points.add(point);
         head = point;
     }
@@ -109,7 +110,7 @@ public class Snake {
      * @return {@code true} if the Snake hasn't run into itself yet.
      */
     public boolean isSafe() {
-        return safe || length == 1;
+        return safe ;
     }
 
     /**

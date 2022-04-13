@@ -41,8 +41,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
+    private static final int WIDTH = 200;
+    private static final int HEIGHT = 200;
 
     private GameLoop loop;
     private Grid grid;
@@ -62,7 +62,10 @@ public class Main extends Application {
         canvas.setOnKeyPressed(e -> {
             Snake snake = grid.getSnake();
             if (loop.isKeyPressed()) {
-                return;
+                if (loop.isRunning()) {
+                    return;
+                } else {
+                }
             }
             switch (e.getCode()) {
                 case UP:
@@ -77,13 +80,25 @@ public class Main extends Application {
                 case RIGHT:
                     snake.setRight();
                     break;
+                case P:
+                    loop.setKeyUnpressed();
+                    if (loop.isRunning()) {
+                        loop.pause();
+                    } else {
+                        loop.resume();
+                    }
+                    break;
                 case ENTER:
-                    if (loop.isPaused()) {
+                    if (loop.isOver()) {
                         reset();
                         (new Thread(loop)).start();
                     }
+                    break;
+                default:
+                    break;
             }
-            loop.setKeyPressed();
+            if (loop.isOver()) return;
+            else loop.setKeyPressed();
         });
 
         reset();
